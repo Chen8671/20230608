@@ -1,0 +1,20 @@
+第一步
+先在目錄底下創建一個資料夾
+指令:Sudo mkdir 資料夾名稱
+ls -al可以查看目錄底下有沒有創建資料夾
+第二步
+為了讓apache2服務到你的資料夾所以先打開伺服器設定檔
+sudo vim /etc/apache2/sites-enabled/000-default.conf
+在vim編輯請按I  儲存退出 shift+zz
+最後重啟apache2    指令sudo systemctl restart apache2
+
+第三步
+然後創建一個創建一個orderview檔案，複製我在gtihub上面同名檔案程式碼
+Vim儲存  w:儲存   wq儲存退出  也可以按shift +zz
+第四部
+創建控制計算orderController.php，複製我在github上面同名檔案程式碼
+這樣可以實現計算商品
+
+
+
+

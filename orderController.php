@@ -1,43 +1,49 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // 檢查是否按下計算費用的按鈕
-    if (isset($_POST['calculate'])) {
-        // 取得表單輸入的值
-        $name = $_POST['name'];
-        $drink = $_POST['drink'];
-        $quantity = $_POST['quantity'];
-        $pearl = isset($_POST['pearl']) ? $_POST['pearl'] : '';
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+  // Validate inputs
+  $errors = [];
 
-        // 執行計算費用的邏輯
-        $total = calculateTotalCost($drink, $quantity, $pearl);
+  $name = $_POST["name"] ?? "";
+  if (empty($name)) {
+    $errors[] = "請輸入訂購者姓名";
+  }
 
-        // 重新導向回原始頁面，並帶上總金額和訂購者姓名作為參數
-        $url = 'orderview?total=' . $total . '&name=' . urlencode($name);
-        header('Location: ' . $url);
-        exit();
+  $quantity = $_POST["quantity"] ?? "";
+  if (empty($quantity)) {
+    $errors[] = "請輸入數量";
+  } elseif (!is_numeric($quantity) || $quantity < 1 || $quantity > 20) {
+    $errors[] = "數量範圍應為1到20之間";
+  }
+
+  $drink = $_POST["drink"] ?? "";
+  if ($drink === "soy-milk" && isset($_POST["pearl"])) {
+    $errors[] = "錯誤！豆漿不能加珍珠";
+  }
+
+  // If there are errors, redirect back to the form with error messages
+  if (!empty($errors)) {
+    $errorString = implode("<br>", $errors);
+    header("Location: index.php?error=" . urlencode($errorString));
+    exit;
+  }
+
+  // Calculate total cost
+  $total = 0;
+  if ($drink === "soy-milk") {
+    $total += 20 * $quantity;
+  } elseif ($drink === "milk-tea") {
+    $total += 25 * $quantity;
+    if (isset($_POST["pearl"])) {
+      $total += 5 * $quantity;
     }
-}
-// 計算總金額的函式
-function calculateTotalCost($drink, $quantity, $pearl) {
-    // 設定飲料價格
-    $drinkPrice = 0;
-    switch ($drink) {
-        case 'soy-milk':
-            $drinkPrice = 20;
-            break;
-        case 'milk-tea':
-            $drinkPrice = 25;
-            break;
-    }
+  }
 
-    // 計算總金額
-    $total = $drinkPrice * $quantity;
-    if ($pearl === 'pearl') {
-        $total += 5;
-    }
-
-    return $total;
+  // Redirect to the form with total amount and name
+  $encodedName = urlencode($name);
+  header("Location: index.php?total=" . $total . "&name=" . $encodedName);
+  exit;
 }
 ?>
+
 
 

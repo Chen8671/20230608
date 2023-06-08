@@ -17,6 +17,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 }
+if ($drink === 'soy-milk' && isset($_POST['pearl'])) {
+      $error = '豆漿不能加珍珠';
+      header('Location: orderView.php?error=' . urlencode($error));
+      exit();
+    }
 
 // 計算總金額的函式
 function calculateTotalCost($drink, $quantity, $pearl) {

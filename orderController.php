@@ -1,4 +1,3 @@
-
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // 檢查是否按下計算費用的按鈕
@@ -51,3 +50,4 @@ function calculateTotalCost($drink, $quantity, $pearl) {
     return $total;
 }
 ?>
+

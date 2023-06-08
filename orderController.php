@@ -4,7 +4,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['calculate'])) {
         // 取得表單輸入的值
         $name = $_POST['name'];
-        $drink = $_POST['drink'];
+        $drink = $_POST['drink']; // Move this line inside the if block
         $quantity = $_POST['quantity'];
         $pearl = isset($_POST['pearl']) ? $_POST['pearl'] : '';
 
@@ -17,11 +17,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 }
-if ($drink === 'soy-milk' && isset($_POST['pearl'])) {
-      $error = '豆漿不能加珍珠';
-      header('Location: orderView.php?error=' . urlencode($error));
-      exit();
-    }
+if (isset($drink) && $drink === 'soy-milk' && isset($_POST['pearl'])) { // Add isset($drink) check
+    $error = '豆漿不能加珍珠';
+    header('Location: orderView.php?error=' . urlencode($error));
+    exit();
+}
 
 // 計算總金額的函式
 function calculateTotalCost($drink, $quantity, $pearl) {

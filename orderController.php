@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   // If there are errors, redirect back to the form with error messages
   if (!empty($errors)) {
     $errorString = implode("<br>", $errors);
-    header("Location: index.php?error=" . urlencode($errorString));
+    header("Location: orderview.php?error=" . urlencode($errorString));
     exit;
   }
 
@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
   // Redirect to the form with total amount and name
   $encodedName = urlencode($name);
-  header("Location: index.php?total=" . $total . "&name=" . $encodedName);
+  header("Location: orderview.php?total=" . $total . "&name=" . $encodedName);
   exit;
 }
 ?>

@@ -1,49 +1,28 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-  // Validate inputs
-  $errors = [];
-
-  $name = $_POST["name"] ?? "";
-  if (empty($name)) {
-    $errors[] = "請輸入訂購者姓名";
-  }
-
-  $quantity = $_POST["quantity"] ?? "";
-  if (empty($quantity)) {
-    $errors[] = "請輸入數量";
-  } elseif (!is_numeric($quantity) || $quantity < 1 || $quantity > 20) {
-    $errors[] = "數量範圍應為1到20之間";
-  }
-
-  $drink = $_POST["drink"] ?? "";
-  if ($drink === "soy-milk" && isset($_POST["pearl"])) {
-    $errors[] = "錯誤！豆漿不能加珍珠";
-  }
-
-  // If there are errors, redirect back to the form with error messages
-  if (!empty($errors)) {
-    $errorString = implode("<br>", $errors);
-    header("Location: orderview.php?error=" . urlencode($errorString));
-    exit;
-  }
-
-  // Calculate total cost
-  $total = 0;
-  if ($drink === "soy-milk") {
-    $total += 20 * $quantity;
-  } elseif ($drink === "milk-tea") {
-    $total += 25 * $quantity;
-    if (isset($_POST["pearl"])) {
-      $total += 5 * $quantity;
-    }
-  }
-
-  // Redirect to the form with total amount and name
-  $encodedName = urlencode($name);
-  header("Location: orderview.php?total=" . $total . "&name=" . $encodedName);
-  exit;
-}
+// 載入db.php來連結資料庫
+require_once 'orderModel.php';
 ?>
 
+<?php
+    $name = $_POST['name'];
+    $drink = $_POST['drink'];
+    $quantity = $_POST['quantity'];
+    $pearl = $_POST['pearl'];
+    $total = 0;
 
+    if ($drink === 'soy-milk' && isset($_POST['pearl'])) {
+      $error = '豆漿不能加珍珠';
+      header('Location: orderView.php?error=' . urlencode($error));
+      exit();
+    }
 
+    if ($drink === 'soy-milk') {
+      $total = 20 * $quantity;
+    } elseif ($drink === 'milk-tea') {
+      $total = (25 + (isset($_POST['pearl']) ? 5 : 0)) * $quantity;
+    }
+    $meals = "INSERT INTO `meals`(`name`,`drink`,`pearl`,`number`)VALUES('$name','$drink','$pearl','$quantity')";
+    $result = mysqli_query($link,$meals);
+    header("Location: orderView.php?total=".$total."&name=".urlencode($name));
+    exit();
+?>

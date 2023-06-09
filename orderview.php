@@ -21,7 +21,7 @@
         <input type="radio" id="soy-milk" name="drink" value="soy-milk" required>
         <label for="soy-milk">豆漿（$20）</label>
       </div>
-      div>
+      <div>
         <input type="radio" id="milk-tea" name="drink" value="milk-tea" required>
         <label for="milk-tea">奶茶（$25）</label>
         <input type="checkbox" id="pearl" name="pearl" value="pearl">
@@ -31,7 +31,7 @@
     <div>
       <label for="quantity">數量：</label>
       <input type="number" id="quantity" name="quantity" min="1" required>
-</div>
+    </div>
     <div>
       <button type="submit" name="calculate">計算費用</button>
     </div>
@@ -40,7 +40,7 @@
     if (isset($_GET['error'])) {
       $error = $_GET['error'];
       echo '<p class="error-message">錯誤！' . $error . '</p>';
-}
+    }
     if (isset($_GET['total'])) {
       $total = $_GET['total'];
       $name = $_GET['name'];
@@ -50,4 +50,3 @@
   ?>
 </body>
 </html>
-                              

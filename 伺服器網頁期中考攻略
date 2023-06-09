@@ -1,10 +1,12 @@
 第一步
-先在目錄底下創建一個資料夾
+先在目錄底下創建一個資料
+cd /var/www/
 指令:Sudo mkdir 資料夾名稱
 ls -al可以查看目錄底下有沒有創建資料夾
 第二步
 為了讓apache2服務到你的資料夾所以先打開伺服器設定檔
 sudo vim /etc/apache2/sites-enabled/000-default.conf
+設定路徑為你的資料夾名稱
 在vim編輯請按I  儲存退出 shift+zz
 最後重啟apache2    指令sudo systemctl restart apache2
 

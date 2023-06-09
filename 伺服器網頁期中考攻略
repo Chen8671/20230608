@@ -18,5 +18,41 @@ Vim儲存  w:儲存   wq儲存退出  也可以按shift +zz
 這樣可以實現計算商品
 
 
+<?php
+// 建立資料庫連線
+$servername = "localhost";
+$username = "your_username";
+$password = "your_password";
+$dbname = "your_database_name";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// 檢查連線是否成功
+if ($conn->connect_error) {
+    die("連線失敗：" . $conn->connect_error);
+}
+
+// 建立資料表
+$sql = "CREATE TABLE orders (
+    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(30) NOT NULL,
+    drink VARCHAR(30) NOT NULL,
+    pearl TINYINT(1) DEFAULT 0,
+    quantity INT(6) NOT NULL,
+    total DECIMAL(8, 2) NOT NULL
+)";
+
+if ($conn->query($sql) === TRUE) {
+    echo "資料表建立成功";
+} else {
+    echo "錯誤：" . $conn->error;
+}
+
+// 關閉資料庫連線
+$conn->close();
+?>
+
+
+
 
 

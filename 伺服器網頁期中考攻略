@@ -19,6 +19,12 @@ Vim儲存  w:儲存   wq儲存退出  也可以按shift +zz
 
 第五步創建orderModel.php
 sudo vim orderModel.php   然後複製我攻略的同名檔案裡面的程式語言
+orderModel.php
+$host = 'localhost';  
+$dbuser ='sarah';//帳號
+$dbpassword ='00000';//密碼
+$dbname = 'vip';  這個是你的資料庫名稱要改
+
 第六步建立資料庫------------------------------------------------
 首先退出目錄        cd
 然後進入           mysql -u sarah -p00000

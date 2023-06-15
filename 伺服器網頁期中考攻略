@@ -40,7 +40,7 @@ $sql = "CREATE TABLE orders (
     pearl TINYINT(1) DEFAULT 0,
     quantity INT(6) NOT NULL,
     total DECIMAL(8, 2) NOT NULL
-)";
+);
 
 if ($conn->query($sql) === TRUE) {
     echo "資料表建立成功";

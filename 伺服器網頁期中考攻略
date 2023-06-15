@@ -20,7 +20,7 @@ Vim儲存  w:儲存   wq儲存退出  也可以按shift +zz
 第五步創建orderModel.php
 sudo vim orderModel.php   然後複製我攻略的同名檔案裡面的程式
 ..............................................................
-orderModel.php裡面要改的部
+orderModel.php裡面要改的部份
 $host = 'localhost';  
 $dbuser ='sarah';//帳號
 $dbpassword ='00000';//密碼

@@ -17,23 +17,17 @@ Vim儲存  w:儲存   wq儲存退出  也可以按shift +zz
 創建控制計算orderController.php，複製我在github上面同名檔案程式碼
 這樣可以實現計算商品
 
+第五步創建orderModel.php
+sudo vim orderModel.php   然後複製我攻略的同名檔案裡面的程式語言
+第六步建立資料庫------------------------------------------------
+首先退出目錄        cd
+然後進入           mysql -u sarah -p00000
+建立testdb資料庫   CREATE DATABASE 你自己的資料庫名稱;
+列出所有資料庫      show databases;
+使用testdb資料庫   use 你的資料庫名稱;
 
-<?php
-// 建立資料庫連線
-$servername = "localhost";
-$username = "your_username";
-$password = "your_password";
-$dbname = "your_database_name";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// 檢查連線是否成功
-if ($conn->connect_error) {
-    die("連線失敗：" . $conn->connect_error);
-}
-
-// 建立資料表
-$sql = "CREATE TABLE orders (
+以下就是建立資料表     orders就是你的資料表名稱
+CREATE TABLE orders (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(30) NOT NULL,
     drink VARCHAR(30) NOT NULL,
@@ -42,15 +36,14 @@ $sql = "CREATE TABLE orders (
     total DECIMAL(8, 2) NOT NULL
 );
 
-if ($conn->query($sql) === TRUE) {
-    echo "資料表建立成功";
-} else {
-    echo "錯誤：" . $conn->error;
-}
+接下來測試你的orderController.php 有沒有跟  orderModel.php  在http://localhost 顯示正確連線資料庫  
 
-// 關閉資料庫連線
-$conn->close();
-?>
+然後在你的orderview.php  輸入訂單資訊然後點計算費用送出
+
+接下來就是撈出資料   我們在剛剛myspl  輸入  SELECT * FROM  你的資料表名稱;
+就顯示出你剛剛輸入的訂單資料 
+
+
 
 
 
